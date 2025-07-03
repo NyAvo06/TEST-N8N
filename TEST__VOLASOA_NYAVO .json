@@ -1,0 +1,492 @@
+{
+  "name": "TEST- VOLASOA NYAVO",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "formId": "iSSMcsHG",
+        "simplifyAnswers": false,
+        "onlyAnswers": false
+      },
+      "type": "n8n-nodes-base.typeformTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -800,
+        -100
+      ],
+      "id": "b80266d2-6770-4fa8-af04-8bf65305e0a4",
+      "name": "Typeform Trigger",
+      "webhookId": "be42fb93-3224-4091-9fdd-3582065623a5",
+      "credentials": {
+        "typeformOAuth2Api": {
+          "id": "UDku0Pj8i2jcB5aP",
+          "name": "Typeform account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1l6BguSJa3dJgunEMzH7WObhptjcMtHYA4fFnENQYtnA",
+          "mode": "list",
+          "cachedResultName": "TEST Volasoa Ny Avo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l6BguSJa3dJgunEMzH7WObhptjcMtHYA4fFnENQYtnA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Feuille 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1l6BguSJa3dJgunEMzH7WObhptjcMtHYA4fFnENQYtnA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "full_name ": "={{ $json.full_name }}",
+            "email": "={{ $json.email }}",
+            "phone": "={{ $json.phone }}",
+            "company_size ": "={{ $json.company_size }}",
+            "budget": "={{ $json.budget }}",
+            "interest_level": "={{ $json.interest_level }}",
+            "score ": "={{ $json.score }}"
+          },
+          "matchingColumns": [
+            "full_name "
+          ],
+          "schema": [
+            {
+              "id": "full_name ",
+              "displayName": "full_name ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company_size ",
+              "displayName": "company_size ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "budget",
+              "displayName": "budget",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "interest_level",
+              "displayName": "interest_level",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "score ",
+              "displayName": "score ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        60,
+        -160
+      ],
+      "id": "a0e6d19b-41b8-4dd2-bac2-38d78c473bbb",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "e1BscxMvOtvwzzxj",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -820,
+        120
+      ],
+      "id": "4b5a7d79-b3ce-4407-930e-5d38c9d0726f",
+      "name": "Trigger pour le test"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b3b6c991-a520-4d6c-ae13-151573b01b47",
+              "leftValue": "={{ $json.score }}",
+              "rightValue": "hot",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        60,
+        100
+      ],
+      "id": "87809221-c185-47da-b86c-72370d0e78bc",
+      "name": "If score = hot"
+    },
+    {
+      "parameters": {
+        "select": "user",
+        "user": {
+          "__rl": true,
+          "value": "volasoanyavo.r",
+          "mode": "username"
+        },
+        "text": "=\"Nouveau Hot Lead : {{ $json.full_name }}, Budget £{{ $json.budget }}, Intérêt : {{ $json.interest_level }} – Voir Airtable pour plus de détails.\"",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        320,
+        20
+      ],
+      "id": "a667817e-8177-4310-b10a-5d1f830ff1df",
+      "name": "Envoi Message",
+      "webhookId": "2af5e324-5de9-467b-9c93-cc84a418f016",
+      "credentials": {
+        "slackApi": {
+          "id": "i7mhrSkfN4Qw7EEo",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 2,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        500,
+        20
+      ],
+      "id": "35475626-5cb0-4651-814d-7fdea5f02a5b",
+      "name": "Wait 2min",
+      "webhookId": "9f7bb681-c28f-43a0-9675-1bf23407d26e"
+    },
+    {
+      "parameters": {
+        "select": "user",
+        "user": {
+          "__rl": true,
+          "value": "volasoanyavo.r",
+          "mode": "username"
+        },
+        "text": "=🕑 Suivi automatique - Lead à relancer ?\n\nNom :   {{ $('Calcul Score').item.json.full_name }}\nBudget estimé :  {{ $('Calcul Score').item.json.budget }}€  \nNiveau d’intérêt : {{ $('Calcul Score').item.json.interest_level }}\n\nCe lead a été marqué comme *Hot* il y a 2 minutes.\n\n Aucune action enregistrée ? Pensez à le recontacter rapidement.\nVoir le détail dans Google Sheets : \n\nhttps://docs.google.com/spreadsheets/d/1l6BguSJa3dJgunEMzH7WObhptjcMtHYA4fFnENQYtnA/edit?gid=0#gid=0\n",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        660,
+        20
+      ],
+      "id": "4a7988b7-84e7-476e-a475-c67fc273fc1d",
+      "name": "Nurturing",
+      "webhookId": "2af5e324-5de9-467b-9c93-cc84a418f016",
+      "credentials": {
+        "slackApi": {
+          "id": "i7mhrSkfN4Qw7EEo",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "function randomInt(min, max) {\n  return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\nfunction randomChoice(arr) {\n  return arr[Math.floor(Math.random() * arr.length)];\n}\n\nconst budgets = [1000, 2500, 3500, 5000, 7000];\nconst interestLevels = [\"low\", \"medium\", \"high\"];\nconst companySizes = [\"1-10\", \"11-50\", \"51-200\", \"200+\"];\nconst names = [\"Alice Johnson\", \"Bob Smith\", \"Charlie D.\", \"Dina R.\", \"Eddy K.\"];\n\nconst lead = {\n  full_name: randomChoice(names),\n  email: \"volasoanyavo.r@gmail.com\",\n  phone: \"+261\" + randomInt(320000000, 349999999),\n  company_size: randomChoice(companySizes),\n  budget: randomChoice(budgets),\n  interest_level: randomChoice(interestLevels)\n};\n\nreturn [{ json: lead }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -540,
+        120
+      ],
+      "id": "4876ef0c-3440-4cb3-be96-8fd74eb7e6bd",
+      "name": "Générer Données"
+    },
+    {
+      "parameters": {
+        "jsCode": "const requiredFields = [\"full_name\", \"email\", \"budget\", \"interest_level\"];\n\nfor (const field of requiredFields) {\n  if (!$json[field]) {\n    throw new Error(`Champ obligatoire manquant : ${field}`);\n  }\n}\n\n//scoring\nconst budget = parseFloat($json[\"budget\"]);\nconst interest = $json[\"interest_level\"].toLowerCase().trim();\n\nlet score = \"Cold\";\n\nif (budget >= 5000 && interest === \"high\") {\n  score = \"Hot\";\n} else if (budget >= 3000 && (interest === \"medium\" || interest === \"high\")) {\n  score = \"Warm\";\n}\n\nreturn [\n  {\n    json: {\n      ...$json,\n      score\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -220,
+        0
+      ],
+      "id": "e4e00a99-d68d-4eac-ba89-bd4ee79dbee1",
+      "name": "Calcul Score"
+    },
+    {
+      "parameters": {
+        "content": "## Utilisation de Typeform : \nLien: https://form.typeform.com/to/iSSMcsHG",
+        "height": 240,
+        "width": 480
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        -180
+      ],
+      "id": "413b4a7e-d343-458c-9069-ded6459e68be",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Génération données aléatoires",
+        "height": 220,
+        "width": 500,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        80
+      ],
+      "id": "4bedb7ea-2834-49ee-83ea-c18f749f44b2",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": " Lien : https://docs.google.com/spreadsheets/d/1l6BguSJa3dJgunEMzH7WObhptjcMtHYA4fFnENQYtnA/edit?gid=0#gid=0",
+        "height": 260,
+        "width": 340
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -260
+      ],
+      "id": "1725d601-f6a2-4c85-a80a-1fefcbbc2c72",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8a43ede0-260a-4a33-bbb3-dbe3b19e6654",
+              "name": "full_name",
+              "value": "={{ $json.form_response.answers[0].text }}",
+              "type": "string"
+            },
+            {
+              "id": "34e9d0ae-bcbc-46ce-9624-64c8cdac8c03",
+              "name": "email",
+              "value": "={{ $json.form_response.answers[1].email }}",
+              "type": "string"
+            },
+            {
+              "id": "ad67519e-4be2-4990-8f98-47cbdb3c8874",
+              "name": "phone",
+              "value": "={{ $json.form_response.answers[2].phone_number }}",
+              "type": "string"
+            },
+            {
+              "id": "e287f654-928a-45ea-9b71-9626eeee156c",
+              "name": "company_size",
+              "value": "={{ $json.form_response.answers[3].choice.label }}",
+              "type": "string"
+            },
+            {
+              "id": "87f31bf5-b3c2-4343-aa57-895dd95e573d",
+              "name": "budget",
+              "value": "={{ $json.form_response.answers[4].number }}",
+              "type": "string"
+            },
+            {
+              "id": "9ff2f83a-041b-4f6a-ba55-ec8bd123b5dc",
+              "name": "interest_level",
+              "value": "={{ $json.form_response.answers[5].choice.label }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -540,
+        -100
+      ],
+      "id": "f2c1379b-d1be-45ed-868d-509070e48252",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Typeform Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger pour le test": {
+      "main": [
+        [
+          {
+            "node": "Générer Données",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If score = hot": {
+      "main": [
+        [
+          {
+            "node": "Envoi Message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Envoi Message": {
+      "main": [
+        [
+          {
+            "node": "Wait 2min",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 2min": {
+      "main": [
+        [
+          {
+            "node": "Nurturing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Générer Données": {
+      "main": [
+        [
+          {
+            "node": "Calcul Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calcul Score": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If score = hot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Calcul Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c378a12c-27ef-450d-88fb-37d9646d2a07",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a9cac44ce1b335834748a2f66a911c408d2f8cdcfb55b089b99d7e6ec40cc584"
+  },
+  "id": "jZQb1VBvmIWCSenv",
+  "tags": []
+}
