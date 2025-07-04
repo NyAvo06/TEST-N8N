@@ -165,7 +165,7 @@
             {
               "id": "b3b6c991-a520-4d6c-ae13-151573b01b47",
               "leftValue": "={{ $json.score }}",
-              "rightValue": "hot",
+              "rightValue": "Hot",
               "operator": {
                 "type": "string",
                 "operation": "equals",
